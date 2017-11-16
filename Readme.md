@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Даша Кургаева](https://up.htmlacademy.ru/javascript/11/user/245450).
-* Наставник: `Неизвестно`.
+* Наставник: `Артем Черкасов`.
 
 ---
 
