@@ -9,30 +9,29 @@
   var sizeInput = document.querySelector('.upload-resize-controls-value');
   var effectImagePreview = document.querySelector('.effect-image-preview');
 
+  var getScaleValue = function () {
+    return parseInt(sizeInput.value.slice(0, -1), 10);
+  };
+
   var makeBigger = function () {
-    var currentSizeValue = +sizeInput.value.slice(0, -1);
+    var currentSizeValue = getScaleValue();
     if (currentSizeValue < MAX_SIZE_VALUE && currentSizeValue >= MIN_SIZE_VALUE) {
-      currentSizeValue = +currentSizeValue + STEP_SIZE_VALUE;
-      sizeInput.value = currentSizeValue + '%';
+      currentSizeValue += STEP_SIZE_VALUE;
       changeScale(currentSizeValue);
     }
   };
 
   var makeSmaller = function () {
-    var currentSizeValue = +sizeInput.value.slice(0, -1);
+    var currentSizeValue = getScaleValue();
     if (currentSizeValue <= MAX_SIZE_VALUE && currentSizeValue > MIN_SIZE_VALUE) {
-      currentSizeValue = +currentSizeValue - STEP_SIZE_VALUE;
-      sizeInput.value = currentSizeValue + '%';
+      currentSizeValue -= STEP_SIZE_VALUE;
       changeScale(currentSizeValue);
     }
   };
 
   var changeScale = function (currentSizeValue) {
-    if (currentSizeValue !== 100) {
-      effectImagePreview.style.transform = 'scale(' + (currentSizeValue / 100) + ')';
-    } else {
-      effectImagePreview.style.transform = 'scale(1)';
-    }
+    sizeInput.value = currentSizeValue + '%';
+    effectImagePreview.style.transform = 'scale(' + (currentSizeValue / 100) + ')';
   };
 
 

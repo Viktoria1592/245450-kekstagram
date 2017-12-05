@@ -52,37 +52,61 @@
     uploadFormCancel.addEventListener('keydown', onUploadOverlayCloseEnterPress);
   };
 
-  var onFormSubmit = function (event) {
-    var currentHashtagValue = hashtagsArea.value;
-    var hashtagArr = currentHashtagValue.split(' ');
+  var checkTagAmount = function (hashtagArr, event) {
     if (hashtagArr.length > MAX_HASHTAGS_AMOUNT) {
       showError(event);
-      return;
+      return false;
     }
+    return true;
+  };
 
-    for (var i = 0; i < hashtagArr.length; i++) {
-      var arrElem = hashtagArr[i];
-      if (currentHashtagValue !== '') {
+  var checkTag = function (hashtagArr, i, event) {
+    var arrElem = hashtagArr[i];
+    if (arrElem[0] !== '#' || arrElem.length > MAX_HASHTAGS_LENGTH || !checkDuplicate(hashtagArr, i, event)) {
+      showError(event);
+      return false;
+    }
+    return true;
+  };
 
-        if (arrElem[0] !== '#' || arrElem.length > MAX_HASHTAGS_LENGTH) {
-          showError(event);
-          return;
+  var checkDuplicate = function (hashtagArr, i, event) {
+    for (var j = 0; j < hashtagArr.length; j++) {
+      if (i !== j && hashtagArr[i].toLowerCase() === hashtagArr[j].toLowerCase()) {
+        showError(event);
+        return false;
+      }
+    }
+    return true;
+  };
+
+  var checkForm = function (currentHashtagValue, event) {
+    if (currentHashtagValue !== '') {
+      var hashtagArr = currentHashtagValue.split(' ');
+      var isTagAmountValid = checkTagAmount(hashtagArr, event);
+      if (!isTagAmountValid) {
+        return false;
+      }
+
+      for (var i = 0; i < hashtagArr.length; i++) {
+        var isTagValid = checkTag(hashtagArr, i, event);
+        if (!isTagValid) {
+          return false;
         }
-
-        for (var j = 0; j < hashtagArr.length; j++) {
-          if (i !== j && hashtagArr[i].toLowerCase() === hashtagArr[j].toLowerCase()) {
-            showError(event);
-            return;
-          }
-        }
-
       }
     }
 
-    setTimeout(function () {
-      uploadSelectImage.reset();
-    });
-    
+    return true;
+  };
+
+  var onFormSubmit = function (event) {
+    var currentHashtagValue = hashtagsArea.value;
+    var isFormValid = checkForm(currentHashtagValue, event);
+    if (isFormValid) {
+      setTimeout(function () {
+        uploadSelectImage.reset();
+      });
+      hashtagsArea.style.border = '';
+    }
   };
 
   var showError = function (event) {
