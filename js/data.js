@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.data = (function () {
   var DEFAULT_COMMENTS = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -43,8 +43,8 @@
     return photos;
   };
 
-  window.data = {
-    'photoArr': createPhotoArr(PHOTOS_COUNT)
+  return {
+    photoArr: createPhotoArr(PHOTOS_COUNT)
   };
 
 })();

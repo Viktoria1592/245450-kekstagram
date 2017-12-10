@@ -1,6 +1,6 @@
 'use strict';
 
-(function (util) {
+(function (util, data) {
   var picturesContainer = document.querySelector('.pictures');
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var galleryOverlayClose = document.querySelector('.gallery-overlay-close');
@@ -63,11 +63,11 @@
   };
 
   var init = function () {
-    var photos = window.data.photoArr;
+    var photos = data.photoArr;
     initPictureEventListeners(photos);
     initOverlayEventListeners();
   };
 
   init();
 
-})(window.util);
+})(window.util, window.data);

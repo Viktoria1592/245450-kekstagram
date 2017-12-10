@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function (data) {
   var pictureTemplate = document.querySelector('#picture-template').content;
   var picturesContainer = document.querySelector('.pictures');
 
@@ -27,10 +27,10 @@
   };
 
   var init = function () {
-    var photos = window.data.photoArr;
+    var photos = data.photoArr;
     showPhotoBlocks(photos);
   };
 
   init();
 
-})();
+})(window.data);
