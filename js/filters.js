@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function (initializeFilters, initializeSlider) {
 
   var uploadSelectImage = document.querySelector('#upload-select-image');
   var uploadEffectControls = document.querySelector('.upload-effect-controls');
@@ -53,19 +53,6 @@
     }
   };
 
-  var onEffectControlsClick = function () {
-    changeEffect();
-    hideEffectContainer();
-  };
-
-  var getCoords = function (elem) {
-    var box = elem.getBoundingClientRect();
-
-    return {
-      left: box.left + pageXOffset
-    };
-  };
-
   var changeEffectStrength = function (effectValue) {
     switch (currentEffect) {
       case ('effect-chrome'):
@@ -78,59 +65,16 @@
         effectImagePreview.style.filter = 'sepia(' + effectValue / 100 + ')';
         break;
       case ('effect-phobos'):
-        effectImagePreview.style.filter = 'blur(' + (effectValue / 30 - 1 / 3) + 'px)';
+        effectImagePreview.style.filter = 'blur(' + (effectValue * 3 / 100) + 'px)';
         break;
       case ('effect-heat'):
-        effectImagePreview.style.filter = 'brightness(' + (effectValue / 30 - 1 / 3) + ')';
+        effectImagePreview.style.filter = 'brightness(' + (effectValue * 3 / 100) + ')';
         break;
     }
   };
 
-
-  var onMouseDown = function (event) {
-    event.preventDefault();
-    var pinCoords = getCoords(effectPin);
-    var shiftX = Math.round(event.pageX - pinCoords.left);
-
-    var onMouseMove = function (moveEvent) {
-      moveEvent.preventDefault();
-      var effectLineCoords = getCoords(effectLine);
-      var newLeft = Math.round(moveEvent.pageX - shiftX - effectLineCoords.left);
-
-      if (newLeft < 0) {
-        newLeft = 0;
-      }
-      var rightEdge = effectLine.offsetWidth;
-      if (newLeft > rightEdge) {
-        newLeft = rightEdge;
-      }
-
-      var effectValue = Math.round(newLeft / effectLine.offsetWidth * 100);
-
-      effectPin.style.left = effectValue + '%';
-      effectFullLine.style.width = effectValue + '%';
-
-
-      uploadPhotoEffectInput.value = effectValue;
-      uploadPhotoEffectInput.setAttribute('value', effectValue);
-
-      changeEffectStrength(effectValue);
-    };
-
-    var onMouseUp = function (upEvent) {
-      upEvent.preventDefault();
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mouseup', onMouseUp);
-    document.addEventListener('mousemove', onMouseMove);
-  };
-
-
   setDefaultEffectParams();
-  uploadEffectControls.addEventListener('click', onEffectControlsClick);
-  effectPin.addEventListener('mousedown', onMouseDown);
+  initializeFilters(uploadEffectControls, changeEffect, hideEffectContainer);
+  initializeSlider(effectPin, effectLine, effectFullLine, uploadPhotoEffectInput, changeEffectStrength);
 
-})();
+})(window.initializeFilters, window.initializeSlider);
