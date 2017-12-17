@@ -1,6 +1,6 @@
 'use strict';
 
-(function (util, data) {
+window.preview = (function (util) {
   var picturesContainer = document.querySelector('.pictures');
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var galleryOverlayClose = document.querySelector('.gallery-overlay-close');
@@ -62,12 +62,9 @@
     galleryOverlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
   };
 
-  var init = function () {
-    var photos = data.photoArr;
-    initPictureEventListeners(photos);
-    initOverlayEventListeners();
+  return {
+    initPictureEventListeners: initPictureEventListeners,
+    initOverlayEventListeners: initOverlayEventListeners
   };
 
-  init();
-
-})(window.util, window.data);
+})(window.util);
