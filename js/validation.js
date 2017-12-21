@@ -2,7 +2,7 @@
 
 (function (backend, form) {
   var MAX_HASHTAGS_AMOUNT = 5;
-  var MAX_HASHTAGS_LENGTH = 20;
+  var MAX_HASHTAG_LENGTH = 20;
   var uploadSelectImage = document.querySelector('#upload-select-image');
   var hashtagsArea = uploadSelectImage.querySelector('.upload-form-hashtags');
 
@@ -16,7 +16,7 @@
 
   var checkTag = function (hashtagArr, i, event) {
     var arrElem = hashtagArr[i];
-    if (arrElem[0] !== '#' || arrElem.length > MAX_HASHTAGS_LENGTH || !checkDuplicate(hashtagArr, i, event)) {
+    if (arrElem[0] !== '#' || arrElem.length > MAX_HASHTAG_LENGTH || !checkDuplicate(hashtagArr, i, event)) {
       showValidationError(event);
       return false;
     }

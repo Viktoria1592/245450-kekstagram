@@ -12,7 +12,7 @@ window.preview = (function (util) {
     galleryOverlay.querySelector('.comments-count').textContent = photo.comments.length;
     galleryOverlay.querySelector('img.gallery-overlay-image').src = photo.url;
     galleryOverlay.querySelector('.likes-count').textContent = photo.likes;
-    galleryOverlay.classList.remove('hidden');
+    util.showBlock(galleryOverlay, 'hidden');
     document.addEventListener('keydown', onOverlayEscPress);
   };
 
@@ -21,7 +21,7 @@ window.preview = (function (util) {
   };
 
   var closeOverlay = function () {
-    galleryOverlay.classList.add('hidden');
+    util.hideBlock(galleryOverlay, 'hidden');
     document.removeEventListener('keydown', onOverlayEscPress);
   };
 
@@ -45,15 +45,12 @@ window.preview = (function (util) {
     var pictures = picturesContainer.querySelectorAll('.picture');
 
     for (var i = 0; i < pictures.length; i++) {
-
       pictures[i].addEventListener('click', function (event) {
         onPhotoClick(event, photos);
       });
-
       pictures[i].addEventListener('keydown', function (event) {
         onPhotoEnterPress(event, photos);
       });
-
     }
   };
 
