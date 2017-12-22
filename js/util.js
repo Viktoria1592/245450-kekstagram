@@ -1,13 +1,13 @@
 'use strict';
 
-window.util = (function () {
+(function () {
   var KeyCode = {
     ESC: 27,
     ENTER: 13
   };
   var DEBOUNCE_INTERVAL = 500;
 
-  return {
+  window.util = {
     isEscEvent: function (event, action) {
       if (event.keyCode === KeyCode.ESC) {
         action();

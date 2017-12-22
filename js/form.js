@@ -1,6 +1,6 @@
 'use strict';
 
-window.form = (function (util) {
+(function (util) {
   var uploadSelectImage = document.querySelector('#upload-select-image');
   var uploadFile = uploadSelectImage.querySelector('#upload-file');
   var uploadImage = uploadSelectImage.querySelector('.upload-image');
@@ -70,7 +70,7 @@ window.form = (function (util) {
 
   initUploadOverlayEventListeners();
 
-  return {
+  window.form = {
     closeFormWindow: closeUploadOverlay
   };
 
