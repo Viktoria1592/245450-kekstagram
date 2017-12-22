@@ -1,4 +1,5 @@
 'use strict';
+
 (function (util, pictures, preview) {
   var filters = document.querySelector('.filters');
 
