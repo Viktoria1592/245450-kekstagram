@@ -1,8 +1,6 @@
 'use strict';
 
-window.main = (function (backend, pictures, preview, initializeSort) {
-
-
+(function (backend, pictures, preview, initializeSort) {
   var onLoad = function (photos) {
     pictures.renderPhotos(photos);
     preview.initPictureEventListeners(photos);
