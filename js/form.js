@@ -2,14 +2,33 @@
 
 window.form = (function (util) {
   var uploadSelectImage = document.querySelector('#upload-select-image');
-  var uploadFile = document.querySelector('#upload-file');
-  var uploadImage = document.querySelector('.upload-image');
+  var uploadFile = uploadSelectImage.querySelector('#upload-file');
+  var uploadImage = uploadSelectImage.querySelector('.upload-image');
   var uploadOverlay = uploadSelectImage.querySelector('.upload-overlay');
   var uploadFormCancel = uploadSelectImage.querySelector('.upload-form-cancel');
   var commentsArea = uploadSelectImage.querySelector('.upload-form-description');
+  var preview = uploadSelectImage.querySelector('.effect-image-preview');
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+  var uploadPicture = function () {
+    var file = uploadFile.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        preview.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  };
 
   var openUploadOverlay = function () {
-    uploadOverlay.classList.remove('hidden');
+    util.showBlock(uploadOverlay, 'hidden');
     document.addEventListener('keydown', onUploadOverlayEscPress);
   };
 
@@ -27,10 +46,11 @@ window.form = (function (util) {
 
   var onUploadFileChange = function () {
     openUploadOverlay();
+    uploadPicture();
   };
 
-  var onUploadImageEnterPress = function (event) {
-    util.isEnterEvent(event, openUploadOverlay);
+  var onUploadImageEnterPress = function () {
+    uploadFile.click();
   };
 
   var onUploadOverlayCloseClick = function () {

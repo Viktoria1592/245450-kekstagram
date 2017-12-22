@@ -1,9 +1,11 @@
 'use strict';
 
 window.initializeScale = function (input, inc, dec, effectControl, action) {
-  var MIN_VALUE = 25;
-  var MAX_VALUE = 100;
-  var STEP = 25;
+  var ScaleValue = {
+    MIN: 25,
+    MAX: 100,
+    STEP: 25
+  };
 
   var getScaleValue = function () {
     return parseInt(input.value.slice(0, -1), 10);
@@ -16,16 +18,16 @@ window.initializeScale = function (input, inc, dec, effectControl, action) {
 
   var onIncClick = function () {
     var value = getScaleValue();
-    if (value < MAX_VALUE && value >= MIN_VALUE) {
-      value += STEP;
+    if (value < ScaleValue.MAX && value >= ScaleValue.MIN) {
+      value += ScaleValue.STEP;
       setScaleValue(value);
     }
   };
 
   var onDecClick = function () {
     var value = getScaleValue();
-    if (value <= MAX_VALUE && value > MIN_VALUE) {
-      value -= STEP;
+    if (value <= ScaleValue.MAX && value > ScaleValue.MIN) {
+      value -= ScaleValue.STEP;
       setScaleValue(value);
     }
   };

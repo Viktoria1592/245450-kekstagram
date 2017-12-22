@@ -2,13 +2,14 @@
 
 (function () {
   var SERVER_URL = 'https://1510.dump.academy/kekstagram';
+  var STATUS_OK = 200;
 
   var xhrAction = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     var getServerStatus = function () {
-      if (xhr.status === 200) {
+      if (xhr.status === STATUS_OK) {
         onLoad(xhr.response);
       } else {
         onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);

@@ -1,11 +1,13 @@
 'use strict';
 
-window.main = (function (backend, pictures, preview) {
+window.main = (function (backend, pictures, preview, initializeSort) {
+
 
   var onLoad = function (photos) {
     pictures.renderPhotos(photos);
     preview.initPictureEventListeners(photos);
     preview.initOverlayEventListeners();
+    initializeSort.initFiltersEventListeners(photos);
   };
 
   var init = function () {
@@ -14,4 +16,4 @@ window.main = (function (backend, pictures, preview) {
 
   init();
 
-})(window.backend, window.pictures, window.preview);
+})(window.backend, window.pictures, window.preview, window.initializeSort);

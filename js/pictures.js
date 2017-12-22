@@ -14,13 +14,10 @@ window.pictures = (function () {
   };
 
   var renderPhotos = function (photos) {
-    var fragment = document.createDocumentFragment();
-
+    picturesContainer.textContent = '';
     photos.forEach(function (photo, index) {
-      fragment.appendChild(createPhotoBlock(photo, index));
+      picturesContainer.appendChild(createPhotoBlock(photo, index));
     });
-
-    picturesContainer.appendChild(fragment);
   };
 
   return {
