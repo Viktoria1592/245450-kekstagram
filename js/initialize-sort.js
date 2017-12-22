@@ -1,5 +1,5 @@
 'use strict';
-window.initializeSort = (function (util, pictures, preview) {
+(function (util, pictures, preview) {
   var filters = document.querySelector('.filters');
 
   var showPhotos = function (photos) {
@@ -52,7 +52,7 @@ window.initializeSort = (function (util, pictures, preview) {
     filters.addEventListener('click', onFiltersClick);
   };
 
-  return {
+  window.initializeSort = {
     initFiltersEventListeners: initFiltersEventListeners
   };
 })(window.util, window.pictures, window.preview);
