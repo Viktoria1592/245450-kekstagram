@@ -1,6 +1,6 @@
 'use strict';
-(function (initializeScale) {
 
+(function (initializeScale) {
   var sizeBigger = document.querySelector('.upload-resize-controls-button-inc');
   var sizeSmaller = document.querySelector('.upload-resize-controls-button-dec');
   var sizeInput = document.querySelector('.upload-resize-controls-value');

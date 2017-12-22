@@ -1,9 +1,11 @@
 'use strict';
 
-window.initializeFilters = function (elem, action, hide) {
-  var onEffectControlsClick = function () {
-    action();
-    hide();
+(function () {
+  window.initializeFilters = function (elem, action, hide) {
+    var onEffectControlsClick = function () {
+      action();
+      hide();
+    };
+    elem.addEventListener('click', onEffectControlsClick);
   };
-  elem.addEventListener('click', onEffectControlsClick);
-};
+})();

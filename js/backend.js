@@ -3,6 +3,7 @@
 (function () {
   var SERVER_URL = 'https://1510.dump.academy/kekstagram';
   var STATUS_OK = 200;
+  var SERVER_TIMOUT = 10000;
 
   var xhrAction = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -28,7 +29,7 @@
     xhr.addEventListener('error', showServerError);
     xhr.addEventListener('timeout', showSlowServerError);
 
-    xhr.timeout = 10000;
+    xhr.timeout = SERVER_TIMOUT;
 
     return xhr;
   };

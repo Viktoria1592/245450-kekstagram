@@ -1,6 +1,6 @@
 'use strict';
 
-window.preview = (function (util) {
+(function (util) {
   var picturesContainer = document.querySelector('.pictures');
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var galleryOverlayClose = document.querySelector('.gallery-overlay-close');
@@ -59,7 +59,7 @@ window.preview = (function (util) {
     galleryOverlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
   };
 
-  return {
+  window.preview = {
     initPictureEventListeners: initPictureEventListeners,
     initOverlayEventListeners: initOverlayEventListeners
   };

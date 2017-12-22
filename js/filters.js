@@ -2,6 +2,12 @@
 
 (function (util, initializeFilters, initializeSlider) {
 
+  var EffectValue = {
+    MIN: 0,
+    MAX: 100,
+    DEFAULT: 100
+  };
+
   var uploadSelectImage = document.querySelector('#upload-select-image');
   var uploadEffectControls = document.querySelector('.upload-effect-controls');
   var effectImagePreview = document.querySelector('.effect-image-preview');
@@ -11,12 +17,6 @@
   var effectLine = uploadSelectImage.querySelector('.upload-effect-level-line');
   var effectFullLine = uploadSelectImage.querySelector('.upload-effect-level-val');
   var currentEffect;
-
-  var EffectValue = {
-    MIN: 0,
-    MAX: 100,
-    DEFAULT: 100
-  };
 
   var setDefaultEffectParams = function () {
     util.hideBlock(effectContainer, 'hidden');

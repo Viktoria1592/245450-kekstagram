@@ -1,6 +1,6 @@
 'use strict';
 
-window.pictures = (function () {
+(function () {
   var pictureTemplate = document.querySelector('#picture-template').content;
   var picturesContainer = document.querySelector('.pictures');
 
@@ -20,7 +20,7 @@ window.pictures = (function () {
     });
   };
 
-  return {
+  window.pictures = {
     renderPhotos: renderPhotos
   };
 
