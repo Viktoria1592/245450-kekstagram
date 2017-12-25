@@ -29,7 +29,7 @@
     effectFullLine.style.width = '100%';
   };
 
-  var changeEffect = function () {
+  var changeEffect = function (event) {
     var elem = event.target;
     if (elem.nodeName !== 'INPUT') {
       return;
@@ -43,7 +43,7 @@
     setDefaultEffectParams();
   };
 
-  var hideEffectContainer = function () {
+  var hideEffectContainer = function (event) {
     var elem = event.target;
 
     if (elem.value === 'none') {

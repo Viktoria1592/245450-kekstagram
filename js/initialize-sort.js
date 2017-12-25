@@ -9,7 +9,8 @@
     preview.initOverlayEventListeners();
   };
 
-  var changeOrder = function (photos) {
+  var changeOrder = function (event, photos) {
+    var sortedPhotos = photos;
     var elem = event.target;
     if (elem.nodeName !== 'INPUT') {
       return;
@@ -17,7 +18,7 @@
 
     switch (elem.value) {
       case ('recommend'):
-        var sortedPhotos = photos;
+        sortedPhotos = photos;
         break;
       case ('popular'):
         sortedPhotos = photos.slice();
@@ -47,8 +48,8 @@
 
   var initFiltersEventListeners = function (photos) {
     util.showBlock(filters, 'filters-inactive');
-    var onFiltersClick = function () {
-      changeOrder(photos);
+    var onFiltersClick = function (event) {
+      changeOrder(event, photos);
     };
     filters.addEventListener('click', onFiltersClick);
   };
