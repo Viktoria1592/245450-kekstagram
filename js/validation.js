@@ -33,9 +33,7 @@
     if (currentHashtagValue === '') {
       return true;
     }
-    var hashtags = currentHashtagValue.split(' ').filter(function (tag) {
-      return tag !== '';
-    });
+    var hashtags = currentHashtagValue.split(' ');
     if (!isTagAmountValid(hashtags) || !isTagsValid(hashtags)) {
       showValidationError(event);
       return false;
