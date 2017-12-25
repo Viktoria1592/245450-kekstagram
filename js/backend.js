@@ -9,7 +9,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    var getServerStatus = function () {
+    var onXhrLoad = function () {
       if (xhr.status === STATUS_OK) {
         onLoad(xhr.response);
       } else {
@@ -17,17 +17,17 @@
       }
     };
 
-    var showServerError = function () {
+    var onXhrError = function () {
       onError('Произошла ошибка соединения');
     };
 
-    var showSlowServerError = function () {
+    var onXhrTimeout = function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     };
 
-    xhr.addEventListener('load', getServerStatus);
-    xhr.addEventListener('error', showServerError);
-    xhr.addEventListener('timeout', showSlowServerError);
+    xhr.addEventListener('load', onXhrLoad);
+    xhr.addEventListener('error', onXhrError);
+    xhr.addEventListener('timeout', onXhrTimeout);
 
     xhr.timeout = SERVER_TIMOUT;
 

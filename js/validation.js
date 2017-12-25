@@ -4,68 +4,70 @@
   var MAX_HASHTAGS_AMOUNT = 5;
   var MAX_HASHTAG_LENGTH = 20;
   var uploadSelectImage = document.querySelector('#upload-select-image');
+  var uploadEffectContainer = uploadSelectImage.querySelector('.upload-effect__container');
   var hashtagsArea = uploadSelectImage.querySelector('.upload-form-hashtags');
 
-  var checkTagAmount = function (hashtagArr, event) {
-    if (hashtagArr.length > MAX_HASHTAGS_AMOUNT) {
+  var isTagAmountValid = function (hashtags) {
+    return hashtags.length <= MAX_HASHTAGS_AMOUNT;
+  };
+
+  var isTagValid = function (hashtags, i) {
+    var hashtag = hashtags[i];
+    return hashtag[0] === '#' && hashtag.length <= MAX_HASHTAG_LENGTH && isNotDuplicate(hashtags, i);
+  };
+
+  var isNotDuplicate = function (hashtags, currentIndex) {
+    return hashtags.every(function (hashtag, i) {
+      return currentIndex === i || hashtags[currentIndex].toLowerCase() !== hashtags[i].toLowerCase();
+    });
+  };
+
+  var isTagsValid = function (hashtags) {
+    return hashtags.every(function (hashtag, i) {
+      return isTagValid(hashtags, i);
+    });
+  };
+
+  var isFormValid = function (currentHashtagValue, event) {
+    if (currentHashtagValue === '') {
+      return true;
+    }
+    var hashtags = currentHashtagValue.split(' ');
+    if (!isTagAmountValid(hashtags) || !isTagsValid(hashtags)) {
       showValidationError(event);
       return false;
     }
     return true;
   };
 
-  var checkTag = function (hashtagArr, i, event) {
-    var arrElem = hashtagArr[i];
-    if (arrElem[0] !== '#' || arrElem.length > MAX_HASHTAG_LENGTH || !checkDuplicate(hashtagArr, i, event)) {
-      showValidationError(event);
-      return false;
-    }
-    return true;
+  var showFormError = function (errorMessage) {
+    var errorWindow = document.createElement('div');
+    uploadEffectContainer.appendChild(errorWindow);
+    errorWindow.style.width = '50%';
+    errorWindow.style.height = '50px';
+    errorWindow.style.border = '2px solid tomato';
+    errorWindow.style.margin = '0 auto';
+    errorWindow.style.display = 'flex';
+    errorWindow.style.alignItems = 'center';
+    errorWindow.style.justifyContent = 'center';
+    errorWindow.style.color = 'tomato';
+    errorWindow.textContent = errorMessage;
   };
 
-  var checkDuplicate = function (hashtagArr, i, event) {
-    for (var j = 0; j < hashtagArr.length; j++) {
-      if (i !== j && hashtagArr[i].toLowerCase() === hashtagArr[j].toLowerCase()) {
-        showValidationError(event);
-        return false;
-      }
-    }
-    return true;
-  };
-
-  var checkForm = function (currentHashtagValue, event) {
-    if (currentHashtagValue !== '') {
-      var hashtagArr = currentHashtagValue.split(' ');
-      var isTagAmountValid = checkTagAmount(hashtagArr, event);
-      if (!isTagAmountValid) {
-        return false;
-      }
-
-      for (var i = 0; i < hashtagArr.length; i++) {
-        var isTagValid = checkTag(hashtagArr, i, event);
-        if (!isTagValid) {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
-
-  var onSuccess = function () {
+  var onSuccess = function (event) {
     var currentHashtagValue = hashtagsArea.value;
-    var isFormValid = checkForm(currentHashtagValue, event);
-    if (isFormValid) {
+    if (isFormValid(currentHashtagValue, event)) {
       setTimeout(function () {
         uploadSelectImage.reset();
       });
       hashtagsArea.style.border = '';
-      backend.save(new FormData(uploadSelectImage), form.closeFormWindow, backend.showError);
+      backend.save(new FormData(uploadSelectImage), form.closeFormWindow, showFormError);
     }
   };
 
   var onFormSubmit = function (event) {
     event.preventDefault();
-    onSuccess();
+    onSuccess(event);
   };
 
   var showValidationError = function (event) {

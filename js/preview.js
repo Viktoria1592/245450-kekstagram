@@ -44,14 +44,14 @@
   var initPictureEventListeners = function (photos) {
     var pictures = picturesContainer.querySelectorAll('.picture');
 
-    for (var i = 0; i < pictures.length; i++) {
-      pictures[i].addEventListener('click', function (event) {
+    pictures.forEach(function (picture) {
+      picture.addEventListener('click', function (event) {
         onPhotoClick(event, photos);
       });
-      pictures[i].addEventListener('keydown', function (event) {
+      picture.addEventListener('keydown', function (event) {
         onPhotoEnterPress(event, photos);
       });
-    }
+    });
   };
 
   var initOverlayEventListeners = function () {
